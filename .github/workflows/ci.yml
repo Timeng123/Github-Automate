@@ -23,7 +23,7 @@ jobs:
         run: npm ci # This is mean install the dependencies from package-lock.json file
 
       - name: Run Angular tests # Using it for CI/CD pipeline to run Angular tests in headless mode
-        run: npx ng test --watch=false --browsers=ChromeHeadless
+        run: npm run test:ci
 
       - name: Build Angular application # Using it for CI/CD pipeline to build Angular application in production mode
         run: npx ng build --configuration=production
