@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Download code from the repository
-        uses: actions/checkout@v4 # This is mean download the code from the repository to the runner machine
+        uses: actions/checkout@v5 # This is mean download the code from the repository to the runner machine
 
       - name: Download and Setup Node.js
-        uses: actions/setup-node@v4 # This is mean setup the Node.js environment on the runner machine
+        uses: actions/setup-node@v5 # This is mean setup the Node.js environment on the runner machine
         with:
           node-version: 24
           cache: 'npm'
