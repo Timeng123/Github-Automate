@@ -1,12 +1,29 @@
 name: Github Actions CI Automation Test
 
 on:
-  push:
+  push: # Triggers the workflow when a push is made to the repository
+    branches:
+      - feature/github-automation # Triggers when a commit is pushed to 'feature/github-automation'
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Say Hello
-        run: echo "Hello from GitHub Actions!"
+      - name: Download code from the repository
+        uses: actions/checkout@v4 # This is mean download the code from the repository to the runner machine
+
+      - name: Download and Setup Node.js
+        uses: actions/setup-node@v4 # This is mean setup the Node.js environment on the runner machine
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies of the Angular application
+        run: npm ci # This is mean install the dependencies from package-lock.json file
+
+      - name: Run Angular tests # Using it for CI/CD pipeline to run Angular tests in headless mode
+        run: npx ng test --watch=false --browsers=ChromeHeadless
+
+      - name: Build Angular application # Using it for CI/CD pipeline to build Angular application in production mode
+        run: npx ng build --configuration=production
